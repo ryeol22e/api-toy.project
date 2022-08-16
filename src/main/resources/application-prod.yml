@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: api
+ config:
+  activate:
+   on-profile:
+    - prod
+  import:
+   - classpath:/application-prod.yml
+
+server:
+  port: 7775
