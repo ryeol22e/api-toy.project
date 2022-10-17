@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 	private final BoardDAO boardDAO;
 	
-
 	public Boolean boardRegist(BaseBoardDTO param) throws Exception {
 		boardDAO.save(param);
 

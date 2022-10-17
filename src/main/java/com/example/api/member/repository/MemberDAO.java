@@ -8,5 +8,6 @@ import com.example.api.member.dto.MemberDTO;
 @Repository
 public interface MemberDAO extends JpaRepository<MemberDTO, Long> {
 	MemberDTO findByLoginId(String loginId);
+	Integer countByLoginId(String loginId);
 	
 }

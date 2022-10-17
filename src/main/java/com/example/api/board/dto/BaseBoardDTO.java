@@ -1,5 +1,6 @@
 package com.example.api.board.dto;
 
+import java.sql.Blob;
 import java.sql.Timestamp;
 
 import javax.persistence.GeneratedValue;
@@ -11,8 +12,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
+@Setter
 @Getter
 @ToString
 @MappedSuperclass
@@ -27,5 +30,9 @@ public abstract class BaseBoardDTO {
 	private Timestamp writeTime;
 	@UpdateTimestamp
 	private Timestamp modifyTime;
+
+	private String imageName;
+	private String iamgeUrl;
+	private Blob imageData;
 	
 }

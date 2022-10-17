@@ -1,6 +1,5 @@
 package com.example.api.common.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -8,40 +7,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.api.common.dto.HeaderDTO;
+import com.example.api.common.dto.CommonDTO;
+import com.example.api.common.service.CommonService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/common")
 public class CommonController {
+	private final CommonService commonService;
 	
-	@GetMapping("/auth/check")
-	public void loginCheck() throws Exception {}
+	@GetMapping("/headers")
+	public ResponseEntity<List<CommonDTO>> getHeaders(CommonDTO parameter) throws Exception {
+		// getmapping은 스프링부트에서 javabean 방식으로 데이터를 받음. 그래서 dto로 받을려면 dto에 setter가 있어야한다.
+		// 추가 setter를 안해도 받는방법이 있다 내용은 globalControllerAdvice.java에 설정되어있음.
+		log.info(">>>>>>>>>>>>>>>>>>>>>>>> data : {}", parameter);
+		return ResponseEntity.ok(commonService.getHeaders(parameter));
+	}
 
-	@GetMapping ("/headers")
-	ResponseEntity<List<HeaderDTO>> getHeaderList() throws Exception {
-		List<HeaderDTO> headers = new ArrayList<>();
-		HeaderDTO dto1 = new HeaderDTO();
-		HeaderDTO dto2 = new HeaderDTO();
-		HeaderDTO dto3 = new HeaderDTO();
+	@GetMapping("/future1")
+	public ResponseEntity<String> futrue1() throws Exception {
+		return ResponseEntity.ok(commonService.completeFutrueMethod());
+	}
 
-		dto1.setId("1");
-		dto1.setName("Q&A");
-		dto1.setPath("/boards/qna");
-		headers.add(dto1);
+	@GetMapping("/future2")
+	public ResponseEntity<String> futrue2() throws Exception {
+		return ResponseEntity.ok(commonService.completeFutrueMethod2());
+	}
 
-		dto2.setId("2");
-		dto2.setName("COMMUNITY");
-		dto2.setPath("/boards/community");
-		headers.add(dto2);
-
-		dto3.setId("3");
-		dto3.setName("TESTPAGE");
-		dto3.setPath("/setup/test");
-		headers.add(dto3);
-
-		return ResponseEntity.ok(headers);
+	@GetMapping("/clicks")
+	public ResponseEntity<Boolean> clicks() throws Exception {
+		return ResponseEntity.ok(true);
 	}
 }
