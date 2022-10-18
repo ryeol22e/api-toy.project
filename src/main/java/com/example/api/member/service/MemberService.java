@@ -14,24 +14,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberService {
 	private final MemberDAO memberDAO;
-
-	// public Map<String, Object> checkLogin(MemberDTO member) throws Exception {
-	// 	Map<String, Object> map = new HashMap<>();
-	// 	String token = member.getToken();
-
-	// 	if(token!=null) {
-	// 		if(!TokenProvider.validateToken(token)) {
-	// 			String refreshToken = TokenProvider.refreshToken(member);
-
-	// 			member.setRefreshToken(refreshToken);
-	// 			memberDAO.save(member);
-	// 			map.put("result", false);
-	// 			map.put("refreshToken", refreshToken);
-	// 		}
-	// 	}
-
-	// 	return map;
-	// }
 	
 	/**
 	 * refresh token 가져오기
