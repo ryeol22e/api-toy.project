@@ -36,7 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		boolean checkAuth = request.getRequestURI().equalsIgnoreCase("/api/common/auth/check") ? true : false;
+		boolean checkAuth = request.getRequestURI().equalsIgnoreCase("/api/auth/check") ? true : false;
 		boolean checkAuthExpire = false;
 		String token = "";
 		Enumeration<String> headers = request.getHeaders(HttpHeaders.AUTHORIZATION);

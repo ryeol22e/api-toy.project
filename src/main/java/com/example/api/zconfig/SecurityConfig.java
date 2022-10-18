@@ -41,7 +41,7 @@ public class SecurityConfig {
 	 */
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
+		http.formLogin().disable().httpBasic().disable().logout().disable().csrf().disable()
 			.cors()
 			.configurationSource(corsConfigurationSource())
 			.and()
@@ -60,8 +60,7 @@ public class SecurityConfig {
 				.antMatchers("/api/member/**").permitAll()
 				.antMatchers("/api/**/list").permitAll()
 			.and()
-				.addFilterBefore(new JwtFilter(memberService), UsernamePasswordAuthenticationFilter.class)
-				.formLogin().disable().httpBasic().disable().logout().disable().csrf().disable();
+				.addFilterBefore(new JwtFilter(memberService), UsernamePasswordAuthenticationFilter.class);
 			
 		return http.build();
 	}
