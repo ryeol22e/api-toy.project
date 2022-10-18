@@ -1,8 +1,9 @@
 package com.example.api.board.controller;
 
+import java.sql.Blob;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,10 +59,16 @@ public class BoardController {
 
 	@PostMapping("/regist/community")
 	public ResponseEntity<Boolean> commRegist(CommBoardDTO param) throws Exception {
-		MultipartFile file = param.getImage();
-		
-		param.setImageName(file.getOriginalFilename());
-		param.setIamgeUrl("http://localhost:9999/image/".concat(file.getOriginalFilename()));
+		if(param.getImage()!=null) {
+			MultipartFile file = param.getImage();
+			byte[] byteImage = file.getBytes();
+			Blob image = new SerialBlob(byteImage);
+			
+			param.setImageData(image);
+			param.setImageName(file.getOriginalFilename());
+			param.setIamgeUrl("http://localhost:9999/image/".concat(file.getOriginalFilename()));
+		}
+
 		return ResponseEntity.ok(boardService.boardRegist(param));
 	}
 }

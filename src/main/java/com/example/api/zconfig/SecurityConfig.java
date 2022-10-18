@@ -53,7 +53,7 @@ public class SecurityConfig {
 				.authorizeRequests()
 				.antMatchers("/api/common/auth/**").authenticated()
 				.antMatchers("/api/display/corner/**").authenticated()
-				.antMatchers("/api/boards/regist/**").hasRole(MemberRoleEnum.ADMIN.getValue())
+				.antMatchers("/api/boards/regist/**").hasAuthority(MemberRoleEnum.ADMIN.getValue())
 				.antMatchers("/api/boards/qna/?").authenticated()
 				.antMatchers("/api/common/headers").permitAll()
 				.antMatchers("/api/search/**").permitAll()

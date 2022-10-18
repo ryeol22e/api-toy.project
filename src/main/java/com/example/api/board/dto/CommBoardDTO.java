@@ -8,9 +8,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.api.member.dto.MemberDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +25,10 @@ import lombok.ToString;
 @Entity
 @Table(name="COMM_BOARD")
 @NoArgsConstructor
+@JsonIgnoreProperties(value = {"imageData"}, allowSetters = true)
 public class CommBoardDTO extends BaseBoardDTO {
 	@Transient
+	@Nullable
 	private MultipartFile image;
 	private String imageName;
 	private String imageUrl;
