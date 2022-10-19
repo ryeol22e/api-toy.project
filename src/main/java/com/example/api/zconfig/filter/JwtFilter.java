@@ -64,8 +64,12 @@ public class JwtFilter extends OncePerRequestFilter {
 		String userRole = MemberRoleEnum.ANONYMOUS.getValue();
 
 		if(checkAuth) {
-			if("".equals(token) || checkAuthExpire) {
+			if(!"".equals(token) && checkAuthExpire) {
 				throw new IOException("로그인이 만료되었습니다.");
+			}
+
+			if("".equals(token)) {
+				throw new IOException("인증되지 않은 회원입니다.");
 			}
 		}
 
