@@ -66,7 +66,7 @@ public class BoardController {
 			
 			param.setImageData(image);
 			param.setImageName(file.getOriginalFilename());
-			param.setIamgeUrl("http://localhost:9999/image/".concat(file.getOriginalFilename()));
+			param.setImageUrl("http://localhost:9999/image/".concat(file.getOriginalFilename()));
 		}
 
 		return ResponseEntity.ok(boardService.boardRegist(param));

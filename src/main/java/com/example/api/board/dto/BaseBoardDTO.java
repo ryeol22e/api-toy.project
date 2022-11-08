@@ -30,9 +30,5 @@ public abstract class BaseBoardDTO {
 	private Timestamp writeTime;
 	@UpdateTimestamp
 	private Timestamp modifyTime;
-
-	private String imageName;
-	private String iamgeUrl;
-	private Blob imageData;
 	
 }

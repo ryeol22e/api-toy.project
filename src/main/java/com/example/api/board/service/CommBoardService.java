@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.api.board.dto.CommBoardDTO;
 import com.example.api.board.repository.CommBoardDAO;
+import com.example.api.utils.UtilsData;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,13 @@ public class CommBoardService {
 	}
 	
 	public CommBoardDTO commDetail(Long boardSeq) throws Exception {
-		return commBoardDAO.findByBoardSeq(boardSeq);
+		CommBoardDTO result = commBoardDAO.findByBoardSeq(boardSeq);
+
+		if(result.getImageData()!=null) {
+			result.setImageDataByte(UtilsData.returnBlobData(result.getImageData()));
+		}
+
+		return result;
 	}
+
 }

@@ -33,6 +33,8 @@ public class CommBoardDTO extends BaseBoardDTO {
 	private String imageName;
 	private String imageUrl;
 	private Blob imageData;
+	@Transient
+	private byte[] imageDataByte;
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name="writer", insertable = false, updatable = false)
