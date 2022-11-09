@@ -1,6 +1,5 @@
 package com.example.api.board.dto;
 
-import java.sql.Blob;
 import java.sql.Timestamp;
 
 import javax.persistence.GeneratedValue;
