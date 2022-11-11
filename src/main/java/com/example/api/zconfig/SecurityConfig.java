@@ -59,6 +59,7 @@ public class SecurityConfig {
 				.antMatchers("/api/search/**").permitAll()
 				.antMatchers("/api/member/**").permitAll()
 				.antMatchers("/api/**/list").permitAll()
+				.antMatchers("/api/boards/*/del/**").permitAll()
 			.and()
 				.addFilterBefore(new JwtFilter(memberService), UsernamePasswordAuthenticationFilter.class);
 			
@@ -82,6 +83,7 @@ public class SecurityConfig {
 		config.addAllowedHeader("*");
 		config.addAllowedMethod(HttpMethod.GET);
 		config.addAllowedMethod(HttpMethod.POST);
+		config.addAllowedMethod(HttpMethod.DELETE);
 		config.setMaxAge(3600L);
 
 		source.registerCorsConfiguration("/api/**", config);

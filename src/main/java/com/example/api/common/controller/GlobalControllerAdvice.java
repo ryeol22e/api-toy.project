@@ -20,7 +20,7 @@ public class GlobalControllerAdvice {
 	// initBinder에서 web데이터를 받을때 field에 직접 데이터를 넣는방식으로 넣어준다.
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.setDisallowedFields("image");
+		binder.setDisallowedFields("imageData");
 		binder.initDirectFieldAccess();
 	}
 

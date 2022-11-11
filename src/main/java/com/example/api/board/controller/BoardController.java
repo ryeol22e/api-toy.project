@@ -6,6 +6,7 @@ import java.util.List;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.api.board.dto.BaseBoardDTO;
 import com.example.api.board.dto.CommBoardDTO;
 import com.example.api.board.dto.QnABoardDTO;
 import com.example.api.board.service.BoardService;
@@ -70,5 +72,10 @@ public class BoardController {
 		}
 
 		return ResponseEntity.ok(boardService.boardRegist(param));
+	}
+
+	@DeleteMapping({"/comm/del/{boardSeq}", "/qna/del/{boardSeq}"})
+	public ResponseEntity<Boolean> deleteBoard(BaseBoardDTO data) throws Exception {
+		return ResponseEntity.ok(boardService.deleteBoardData(data));
 	}
 }

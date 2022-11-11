@@ -1,5 +1,6 @@
 package com.example.api.board.dto;
 
+
 import java.sql.Blob;
 
 import javax.persistence.Entity;
@@ -35,7 +36,6 @@ public class CommBoardDTO extends BaseBoardDTO {
 	private Blob imageData;
 	@Transient
 	private byte[] imageDataByte;
-	
 	@ManyToOne(optional = false)
 	@JoinColumn(name="writer", insertable = false, updatable = false)
 	private MemberDTO memberInfo;
