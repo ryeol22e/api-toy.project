@@ -1,5 +1,7 @@
 package com.example.api.zconfig;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -78,8 +80,7 @@ public class SecurityConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("http://localhost:9999");
-		config.addAllowedOrigin("http://127.0.0.1:5555");
+		config.setAllowedOrigins(List.of("http://localhost:5555", "http://172.15.2.6:5555"));
 		config.addAllowedHeader("*");
 		config.addAllowedMethod(HttpMethod.GET);
 		config.addAllowedMethod(HttpMethod.POST);
