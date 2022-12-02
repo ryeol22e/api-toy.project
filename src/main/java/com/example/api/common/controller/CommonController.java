@@ -28,18 +28,4 @@ public class CommonController {
 		return ResponseEntity.ok(commonService.getHeaders(parameter));
 	}
 
-	@GetMapping("/future1")
-	public ResponseEntity<String> futrue1() throws Exception {
-		return ResponseEntity.ok(commonService.completeFutrueMethod());
-	}
-
-	@GetMapping("/future2")
-	public ResponseEntity<String> futrue2() throws Exception {
-		return ResponseEntity.ok(commonService.completeFutrueMethod2());
-	}
-
-	@GetMapping("/clicks")
-	public ResponseEntity<Boolean> clicks() throws Exception {
-		return ResponseEntity.ok(true);
-	}
 }

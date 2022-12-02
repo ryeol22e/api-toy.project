@@ -2,13 +2,19 @@ package com.example.api.board.dto;
 
 
 import java.sql.Blob;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +33,17 @@ import lombok.ToString;
 @Table(name="COMM_BOARD")
 @NoArgsConstructor
 @JsonIgnoreProperties(value = {"imageData"}, allowSetters = true)
-public class CommBoardDTO extends BaseBoardDTO {
+public class CommBoardDTO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long boardSeq;
+	private String title;
+	private String content;
+	private String writer;
+	@CreationTimestamp
+	private Timestamp writeTime;
+	@UpdateTimestamp
+	private Timestamp modifyTime;
 	@Transient
 	@Nullable
 	private MultipartFile image;
