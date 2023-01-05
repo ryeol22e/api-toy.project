@@ -13,8 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.example.api.member.dto.MemberRoleEnum;
 import com.example.api.member.service.MemberService;
@@ -31,7 +31,7 @@ public class SecurityConfig {
 	private final AuthEntryPoint authEntryPoint;
 
 	@Bean
-	BCryptPasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
@@ -42,10 +42,10 @@ public class SecurityConfig {
 	 * @throws Exception
 	 */
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.formLogin().disable().httpBasic().disable().logout().disable().csrf().disable()
 			.cors()
-			.configurationSource(corsConfigurationSource())
+			// .configurationSource(corsConfigurationSource())
 			.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
@@ -63,19 +63,37 @@ public class SecurityConfig {
 				.antMatchers("/api/**/list").permitAll()
 				.antMatchers("/api/boards/*/del/**").permitAll()
 			.and()
-				.addFilterBefore(new JwtFilter(memberService), UsernamePasswordAuthenticationFilter.class);
+				.addFilterAt(new JwtFilter(memberService), UsernamePasswordAuthenticationFilter.class);
 			
 		return http.build();
 	}
 
 	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() {
+	public WebSecurityCustomizer webSecurityCustomizer() {
 		return web-> web.ignoring()
 			.antMatchers("/h2-console/**");
 	}
 
+	// @Bean
+	// CorsConfigurationSource corsConfigurationSource() {
+	// 	CorsConfiguration config = new CorsConfiguration();
+	// 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+	// 	config.setAllowCredentials(true);
+	// 	config.setAllowedOrigins(List.of("http://localhost:5555", "http://172.15.2.6:5555"));
+	// 	config.addAllowedHeader("*");
+	// 	config.addAllowedMethod(HttpMethod.GET);
+	// 	config.addAllowedMethod(HttpMethod.POST);
+	// 	config.addAllowedMethod(HttpMethod.DELETE);
+	// 	config.setMaxAge(3600L);
+
+	// 	source.registerCorsConfiguration("/api/**", config);
+
+	// 	return source;
+	// }
+
 	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
+	public CorsFilter corsFilter() {
 		CorsConfiguration config = new CorsConfiguration();
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
@@ -89,6 +107,6 @@ public class SecurityConfig {
 
 		source.registerCorsConfiguration("/api/**", config);
 
-		return source;
+		return new CorsFilter(source);
 	}
 }
